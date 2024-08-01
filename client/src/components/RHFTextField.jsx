@@ -9,7 +9,6 @@ const RHFTextField = ({name, label, type, ...rest}) => {
         <div className="relative mt-2 rounded-md shadow-sm">
          
           <input
-            id="price"
             name={name}
             type={type}
             {...rest}

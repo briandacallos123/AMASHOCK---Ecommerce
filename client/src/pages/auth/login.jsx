@@ -1,6 +1,28 @@
 import React from 'react'
-import { Form, Link } from 'react-router-dom'
+import { Form, Link, redirect } from 'react-router-dom'
 import RHFTextField from '../../components/RHFTextField'
+import customFetch from '../../utils/axios'
+import {toast} from 'react-toastify'
+
+export const action = async({request}) => {
+  try {
+    const fData = await request.formData();
+    const datas = Object.fromEntries(fData);
+    const {data} = await customFetch.post('/auth/login', datas);
+
+   
+    toast.success("Login sucessfully");
+    
+    if(data?.user?.userRole === 'merchant'){
+      return redirect('/merchant/dashboard')
+    }else{
+      return redirect('/dashboard')
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg)
+    return error
+  }
+}
 
 const Login = () => {
   return (

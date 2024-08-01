@@ -14,7 +14,7 @@ const NavMobileMain = () => {
             </div>
 
             <div className='space-x-3 flex items-center'>
-                <Link to="/login">Sign in</Link>
+                <Link to="../login">Sign in</Link>
                 <Icon fontSize={20} icon="mdi:cart"/>
             </div>
         </div>

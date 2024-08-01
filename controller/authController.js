@@ -7,6 +7,8 @@ import { createJWT } from '../utils/tokenUtils.js';
 export const register = async(req, res) => {
     const hashedPass = await hashPass(req.body.password)
     req.body.password = hashedPass
+    req.body.userRole = Number(req.body.isMerchant) === 1 && 'merchant';
+
     const user = await userModel.create({...req.body});
     res.status(200).json({user})
 }
@@ -18,7 +20,7 @@ export const login = async(req, res) => {
     const matchedPass = await comparePassword(req.body.password, isExists.password);
     if(!matchedPass) return res.status(404).json({msg:"not exists"});
 
-    const token = createJWT({userId:isExists?._id, role:isExists?.role})
+    const token = createJWT({userId:isExists?._id, role:isExists?.userRole})
     const oneDay = 1000 * 60 * 60 * 24;
 
     res.cookie('token', token, {
@@ -26,6 +28,6 @@ export const login = async(req, res) => {
         expiresIn:new Date(Date.now() + oneDay),
         secure:process.env.NODE_ENV === 'production'
     })
-    res.status(200).json({msg:"logged in"})
+    res.status(200).json({user:isExists})
 
 }

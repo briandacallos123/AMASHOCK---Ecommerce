@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
     userRole:{
         type:String,
         default:USER_ROLE[0]
-    }
+    },
+    avatar:String,
+    avatarPublicId:String
 },{
     timestamps:true
 })
