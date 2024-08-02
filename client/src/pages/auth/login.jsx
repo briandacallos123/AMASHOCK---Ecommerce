@@ -14,7 +14,7 @@ export const action = async({request}) => {
     toast.success("Login sucessfully");
     
     if(data?.user?.userRole === 'merchant'){
-      return redirect('/merchant/dashboard')
+      return redirect('/merchant')
     }else{
       return redirect('/dashboard')
     }

@@ -8,10 +8,11 @@ import {
 import Homelayout from './layout/Homelayout';
 import Login from './pages/auth/login';
 import Register from './pages/auth/register';
-import Dashboard from './pages/dashboard';
+import DashboardMerchant from './pages/merchant/dashboard';
 
 import { action as actionLogin } from './pages/auth/login';
 import { action as registerLogin } from './pages/auth/register';
+import { action as productAction } from './pages/merchant/create';
 
 import { loader as HomeLoader } from './layout/Homelayout';
 import DashboardLayout from './layout/DashboardLayout';
@@ -40,11 +41,11 @@ const router = createBrowserRouter([
         children:[
           {
             index:true,
-            element:<Dashboard/>,
+            element:<DashboardMerchant/>,
           },
           {
             path:"orders",
-            element:<Dashboard/>
+            element:<h1>Orders!</h1>
           },
           {
             path:"profile",
@@ -52,7 +53,8 @@ const router = createBrowserRouter([
           },
           {
             path:"create-product",
-            element:<Create/>
+            element:<Create/>,
+            action:productAction
           },
         ]
       },

@@ -8,7 +8,9 @@ const NavMainDesktop = () => {
     const { user } = useHomeContext();
     const {pathname} = useLocation();
 
-    if(pathname !== '/'){
+    console.log(pathname)
+
+    if(pathname !== '/' && pathname !== '/login' && pathname !== '/register'){
         return
     }
    
