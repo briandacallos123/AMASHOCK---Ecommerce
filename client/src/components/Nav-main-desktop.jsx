@@ -1,19 +1,17 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
 import NavMainSearchForm from './Nav-main-search-form';
-import { Link, useLocation  } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useHomeContext } from '../layout/Homelayout';
 
 const NavMainDesktop = () => {
     const { user } = useHomeContext();
-    const {pathname} = useLocation();
+    const { pathname } = useLocation();
 
-    console.log(pathname)
-
-    if(pathname !== '/' && pathname !== '/login' && pathname !== '/register'){
+    if (pathname !== '/' && pathname !== '/login' && pathname !== '/register' && !pathname.includes('/product/view')) {
         return
     }
-   
+    console.log(user,'??');
 
     return (
         <div className="bg-[#131921] p-5">
@@ -31,17 +29,25 @@ const NavMainDesktop = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                    <p>Hello,</p>
-                    <Link to="../login">Sign in</Link>
-                    <p>/</p>
-                    <Link to="../register">Sign up</Link>
+                 <p>Hello</p> 
+                    {!user ? <div className="flex items-center space-x-2">
+                    
+                        <Link to="../login">Sign in</Link>
+                        <p>/</p>
+                        <Link to="../register">Sign up</Link>
+                    </div> :
+                    <div className="flex items-center space-x-3">
+                        <p className="capitalize">{user?.name}</p>
+                        <Link to="../register">Logout</Link>
+                    </div>
+                    }
 
                 </div>
 
-                <div className="flex items-center space-x-2">
+                {user?.userRole === 'customer' &&  <div className="flex items-center space-x-2">
                     <p>Cart</p>
                     <Icon fontSize={23} icon="mdi:cart" />
-                </div>
+                </div>}
             </div>
 
         </div>

@@ -27,20 +27,22 @@ const Homelayout = () => {
     return (
 
         <HomeContext.Provider value={{ user }}>
-            <div>
-                <div className="hidden lg:block">
-                    <NavMainDesktop />
+            <div className="h-auto">
+                <div>
+                    <div className="hidden lg:block">
+                        <NavMainDesktop />
+                    </div>
+                    <div className="lg:hidden">
+                        <NavMobileMain />
+
+                    </div>
                 </div>
-                <div className="lg:hidden">
-                    <NavMobileMain />
+                <div className="flex h-auto">
+
+
+                    <Outlet user={user} />
 
                 </div>
-            </div>
-            <div className="flex">
-                
-              
-                <Outlet user={user} />
-             
             </div>
         </HomeContext.Provider>
 

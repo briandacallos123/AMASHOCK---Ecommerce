@@ -31,3 +31,12 @@ export const login = async(req, res) => {
     res.status(200).json({user:isExists})
 
 }
+
+export const logout = async(req, res) => {
+    res.cookie('token','logout',{
+        httpOnly:true,
+        expiresIn:new Date(Date.now())
+    })
+    res.status(200).json({msg:"Success logout"})
+
+}

@@ -21,10 +21,11 @@ const HomePage = () => {
     <div className="w-[1400px] mx-auto py-10 px-5">
         
         {/* category */}
-        <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2  lg:grid-cols-5 gap-2 lg:gap-5">
             {data?.length && data?.map((item)=>(
                 <ListItem row={item}/>
             ))}
+        
           
         </div>
     </div>

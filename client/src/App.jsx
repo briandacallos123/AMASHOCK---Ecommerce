@@ -19,6 +19,7 @@ import { loader as HomeLoader } from './layout/Homelayout';
 import DashboardLayout from './layout/DashboardLayout';
 import Create from './pages/merchant/create';
 import HomePage, {loader as HomeMainLoader} from './pages/home';
+import ProductView, {loader as ProductLoader} from './section/product/product-view';
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
         path:"register",
         element:<Register/>,
         action:registerLogin
+      },
+      {
+        path:"product/view/:id",
+        element:<ProductView/>,
+        loader:ProductLoader
       },
       {
         path:"merchant",

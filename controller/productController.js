@@ -27,6 +27,18 @@ export const getAllProductsByMerchant = async(req, res) => {
     res.status(200).json({data:response})
 }
 
+export const getProduct = async(req, res) => {
+   
+    try {
+        const response = await productModel.findById(req.params.id);
+      
+        res.status(200).json({data:response});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error})
+    }
+}
+
 export const getAllProducts = async(req, res) =>{
     const response = await productModel.find();
     res.status(200).json({data:response})
