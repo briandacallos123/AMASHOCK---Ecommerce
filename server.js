@@ -3,12 +3,17 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import mongoose from 'mongoose';
 import authRoute from './route/authRoute.js'
+import productRoute from './route/productRoute.js'
+import productPublicRoute from './route/productRoutePublic.js'
+
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { authMiddleware } from './middleware/authMiddleware.js';
 import userRoute from './route/userRoute.js'
+import upload from './utils/upload.js';
+import { v2 as cloudinary } from 'cloudinary';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -22,6 +27,16 @@ app.use(cookieParser())
 
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user',authMiddleware, userRoute)
+app.use('/api/v1/product',authMiddleware,upload.single('attachment'), productRoute)
+app.use('/api/v1/public/product', productPublicRoute)
+
+
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.CLOUD_API_KEY, 
+    api_secret: process.env.CLOUD_API_SECRET // Click 'View Credentials' below to copy your API secret
+});
+
 
 try {
     await mongoose.connect(process.env.MONGO_URL);

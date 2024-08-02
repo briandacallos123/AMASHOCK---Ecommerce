@@ -8,15 +8,17 @@ import {
 import Homelayout from './layout/Homelayout';
 import Login from './pages/auth/login';
 import Register from './pages/auth/register';
-import DashboardMerchant from './pages/merchant/dashboard';
+import DashboardMerchant, { loader as MerchantLoader } from './pages/merchant/dashboard';
 
 import { action as actionLogin } from './pages/auth/login';
 import { action as registerLogin } from './pages/auth/register';
 import { action as productAction } from './pages/merchant/create';
 
 import { loader as HomeLoader } from './layout/Homelayout';
+
 import DashboardLayout from './layout/DashboardLayout';
 import Create from './pages/merchant/create';
+import HomePage, {loader as HomeMainLoader} from './pages/home';
 
 
 const router = createBrowserRouter([
@@ -25,6 +27,11 @@ const router = createBrowserRouter([
     element: <Homelayout/>,
     loader:HomeLoader,
     children:[
+      {
+        index:true,
+        element:<HomePage/>,
+        loader:HomeMainLoader
+      },
       {
         path:"login",
         element:<Login/>,
@@ -42,6 +49,8 @@ const router = createBrowserRouter([
           {
             index:true,
             element:<DashboardMerchant/>,
+            loader:MerchantLoader,
+
           },
           {
             path:"orders",
