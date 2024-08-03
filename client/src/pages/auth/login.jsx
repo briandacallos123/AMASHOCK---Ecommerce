@@ -16,7 +16,7 @@ export const action = async({request}) => {
     if(data?.user?.userRole === 'merchant'){
       return redirect('/merchant')
     }else{
-      return redirect('/dashboard')
+      return redirect('/')
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg)
@@ -26,7 +26,7 @@ export const action = async({request}) => {
 
 const Login = () => {
   return (
-    <div className="lg:max-w-[500px] mx-auto space-y-10 pt-10">
+    <div className="lg:min-w-[500px] mx-auto space-y-10 pt-10">
       <h1 className="text-2xl text-gray-400">Sign In</h1>
       <div className="bg-white p-10">
 

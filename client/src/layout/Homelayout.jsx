@@ -4,7 +4,7 @@ import NavMobileMain from '../components/Nav-main-mobile'
 import { Outlet, useLoaderData } from 'react-router'
 import customFetch from '../utils/axios'
 import SidebarMerchant from '../components/Sidebar-main-desktop'
-
+import CartContext from '../context/cartContext'
 
 export const loader = async () => {
     try {
@@ -27,23 +27,25 @@ const Homelayout = () => {
     return (
 
         <HomeContext.Provider value={{ user }}>
-            <div className="h-auto">
-                <div>
-                    <div className="hidden lg:block">
-                        <NavMainDesktop />
+            <CartContext>
+                <div className="h-auto">
+                    <div>
+                        <div className="hidden lg:block">
+                            <NavMainDesktop />
+                        </div>  
+                        <div className="lg:hidden">
+                            <NavMobileMain />
+
+                        </div>
                     </div>
-                    <div className="lg:hidden">
-                        <NavMobileMain />
+                    <div className="flex h-auto">
+
+
+                        <Outlet user={user} />
 
                     </div>
                 </div>
-                <div className="flex h-auto">
-
-
-                    <Outlet user={user} />
-
-                </div>
-            </div>
+            </CartContext>
         </HomeContext.Provider>
 
 

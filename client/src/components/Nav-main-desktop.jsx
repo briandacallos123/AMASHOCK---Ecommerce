@@ -11,8 +11,17 @@ const NavMainDesktop = () => {
     if (pathname !== '/' && pathname !== '/login' && pathname !== '/register' && !pathname.includes('/product/view')) {
         return
     }
-    console.log(user,'??');
 
+    const handleNavigate = () => {
+        let url;
+        if(user?.userRole === 'merchant'){
+            url =  '/merchant'
+        }
+        return url;
+    }
+
+
+    console.log(user);
     return (
         <div className="bg-[#131921] p-5">
 
@@ -29,25 +38,39 @@ const NavMainDesktop = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                 <p>Hello</p> 
+                    <p>Hello,</p>
                     {!user ? <div className="flex items-center space-x-2">
-                    
+
                         <Link to="../login">Sign in</Link>
                         <p>/</p>
                         <Link to="../register">Sign up</Link>
                     </div> :
-                    <div className="flex items-center space-x-3">
-                        <p className="capitalize">{user?.name}</p>
-                        <Link to="../register">Logout</Link>
-                    </div>
+                    <p className="capitalize">{user?.name}</p>
+                        
                     }
 
                 </div>
 
-                {user?.userRole === 'customer' &&  <div className="flex items-center space-x-2">
+                {!user && user?.userRole !== 'merchant' && <div className="flex items-center space-x-2">
                     <p>Cart</p>
-                    <Icon fontSize={23} icon="mdi:cart" />
+                    <Icon fontSize={2} icon="mdi:cart" />
+
+                 
                 </div>}
+                {user && <div className="dropdown dropdown-end">
+                        <Icon tabIndex={0} role="button" className="m-1" icon="mdi:user" fontSize={25}/>
+                       
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 py-3 px-5 space-y-5 text-black">
+                            <Link to={user?.userRole === 'merchant' && '/merchant'}>
+                                <a href="#">Profile</a>
+                            </Link>
+                            <Link to="/logout">
+                                <a href="#">Logout</a>
+                            </Link>
+                        </ul>
+                    </div>}
+
+                 
             </div>
 
         </div>

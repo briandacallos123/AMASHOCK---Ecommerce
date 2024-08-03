@@ -20,6 +20,8 @@ import DashboardLayout from './layout/DashboardLayout';
 import Create from './pages/merchant/create';
 import HomePage, {loader as HomeMainLoader} from './pages/home';
 import ProductView, {loader as ProductLoader} from './section/product/product-view';
+import Logout, {loader as LogoutLoader} from './pages/auth/logout';
+import Checkout from './pages/checkout/Checkout';
 
 
 const router = createBrowserRouter([
@@ -44,9 +46,18 @@ const router = createBrowserRouter([
         action:registerLogin
       },
       {
+        path:"logout",
+        element:<Logout/>,
+        loader:LogoutLoader
+      },
+      {
         path:"product/view/:id",
         element:<ProductView/>,
         loader:ProductLoader
+      },
+      {
+        path:"product/checkout",
+        element:<Checkout/>,
       },
       {
         path:"merchant",
@@ -71,6 +82,7 @@ const router = createBrowserRouter([
             element:<Create/>,
             action:productAction
           },
+         
         ]
       },
     ]

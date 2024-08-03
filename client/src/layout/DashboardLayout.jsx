@@ -6,7 +6,6 @@ import NavMechantMain from '../components/Nav-desktop-merchant'
 
 const DashboardLayout = () => {
     const { user } = useHomeContext()
-    
     const navigate = useNavigate()
     useEffect(()=>{
         if(user?.userRole !== 'merchant'){
