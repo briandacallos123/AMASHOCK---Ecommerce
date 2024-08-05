@@ -16,3 +16,10 @@ body{
 .btn-c{
     padding:1rem 1.5rem;
 }
+
+/* @media screen and (max-width:450px) {
+    .checkout-container{
+        height: calc(100vh - 8rem);
+        position: relative;
+    }
+} */

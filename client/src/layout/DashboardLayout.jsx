@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router'
 import { useHomeContext } from './Homelayout'
 import SidebarMerchant from '../components/Sidebar-main-desktop'
 import NavMechantMain from '../components/Nav-desktop-merchant'
+import { sidebarLinks } from '../utils/constants'
 
 const DashboardLayout = () => {
     const { user } = useHomeContext()
@@ -14,13 +15,13 @@ const DashboardLayout = () => {
     },[user])
     return (
         <div className='w-full background-white '>
-            <div>
+            {/* <div>
                 <NavMechantMain />
-            </div>
+            </div> */}
             <div className='flex'>
                 {user?.userRole === 'merchant' && <div>
                     <div className="hidden lg:block">
-                        <SidebarMerchant />
+                        <SidebarMerchant links={sidebarLinks}/>
                     </div>
                     <div></div>
                 </div>}

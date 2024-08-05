@@ -1,9 +1,10 @@
 export const sidebarLinks = [
     {
-        id:1,
-        label:"products",
+        id:4,
+        label:"dashboard",
         path:"../merchant",
     },
+   
     {
         id:2,
         label:"orders",
@@ -13,5 +14,32 @@ export const sidebarLinks = [
         id:3,
         label:"profile",
         path:"../merchant/profile",
+    },
+    
+]
+
+export const customerLinks = [
+    {
+        id:4,
+        label:"home",
+        path:"/",
+    },
+    {
+        id:2,
+        label:"orders",
+        path:"/customer/orders",
+    },
+    {
+        id:3,
+        label:"profile",
+        path:"/customer/profile",
+    }
+]
+
+export const links_no_user = [
+    {
+        id:1,
+        label:"dashboard",
+        path:"/",
     }
 ]

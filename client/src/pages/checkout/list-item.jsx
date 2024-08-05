@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const CheckOutItem = ({ row }) => {
+const CheckOutItem = ({onIncrement, row, onDecrement}) => {
     const { attachment,quantity, category, price, title, description, _id } = row;
 
     return (
@@ -30,9 +30,9 @@ const CheckOutItem = ({ row }) => {
                 <div className="badge badge-outline p-2 mt-auto">₱ {price}</div>
 
                 <div className="flex items-center w-full  justify-center space-x-5 bg-gray-50 rounded-2xl">
-                    <p className="font-bold text-xl  px-2">-</p>
+                    <p onClick={onDecrement} className="font-bold text-xl  px-2">-</p>
                     <p className="font-bold text-lg">{quantity}</p>
-                    <p className="font-bold text-xl  px-2">+</p>
+                    <p onClick={onIncrement} className="font-bold text-xl  px-2">+</p>
                 </div>
             </div>
 

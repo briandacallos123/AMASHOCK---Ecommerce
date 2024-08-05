@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 export const loader = async ({ params }) => {
 
   try {
-    const { data: product } = await customFetch.get(`/product/${params?.id}`);
+    const { data: product } = await customFetch.get(`/public/product/${params?.id}`);
 
     const { data: productList } = await customFetch.get('/public/product');
 
@@ -24,7 +24,7 @@ const ProductView = () => {
   const data = useLoaderData();
   const {addToCart} = useCartContext();
   const [qty, handleQuantity] = useState(0)
-  const { attachment, title, price, quantity, description, category, _id} = data?.product?.data;
+  const { attachment, title, posttedBy, price, quantity, description, category, _id} = data?.product?.data;
 
 
  
@@ -41,7 +41,9 @@ const ProductView = () => {
       price,
       attachment,
       total:Number(price * qty),
-      description
+      description,
+      attachment,
+      sellerId:posttedBy
     })
     toast.success("Added to cart successfully.")
     handleQuantity(0)

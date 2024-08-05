@@ -4,28 +4,28 @@ const ListItem = ({ row }) => {
     const { attachment, category, price, title, description } = row;
 
     return (
-        <div className="card bg-base-100 w-72 shadow-xl pt-5">
-            <figure>
-                <img
-                    src={attachment}
-                    alt={title} />
-            </figure>
-            <div className="card-body">
-                <h2 className="card-title">
-                    {title}
-                </h2>
-                <p>{description}</p>
-                <div className="flex items-center justify-between">
-                    <div className="card-actions justify-end">
-                        <div className="badge badge-outline">₱ {price}</div>
-
-                    </div>
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                </div>
+        <div className="bg-base-100 px-5 py-4 h-auto flex flex-col space-y-3 sm:space-y-5 overflow-hidden">
+        <a  className="cursor-pointer h-40 sm:h-[60%]">
+            <img src={attachment} className="w-full h-full object-contain" alt={title} />
+        </a>
+        <div className='flex flex-col space-y-1 lg:space-y-2'>
+            <a  className="cursor-pointer capitalize font-semibold text-lg truncate">
+                {title}
+            </a>
+            <div className="rating rating-xs">
+                {Array.from({ length: 5 }, (_, index) => (
+                    <input
+                        key={index}
+                        type="radio"
+                        name={`rating}`}
+                        className="mask mask-star-2 bg-orange-400"
+                    />
+                ))}
             </div>
+            <p className="text-sm truncate">{description}</p>
+            <div className="badge badge-outline p-2 mt-auto">₱ {price}</div>
         </div>
+    </div>
     )
 }
 

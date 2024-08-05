@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import authRoute from './route/authRoute.js'
 import productRoute from './route/productRoute.js'
 import productPublicRoute from './route/productRoutePublic.js'
+import orderRoute from './route/orderRoute.js'
 
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
@@ -29,7 +30,7 @@ app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user',authMiddleware, userRoute)
 app.use('/api/v1/product',authMiddleware,upload.single('attachment'), productRoute)
 app.use('/api/v1/public/product', productPublicRoute)
-
+app.use('/api/v1/orders',authMiddleware, orderRoute)
 
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 

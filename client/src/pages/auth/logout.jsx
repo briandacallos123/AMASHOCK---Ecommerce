@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 
 export const loader = async() => {
     try {
+       
+
         await customFetch.get('/auth/logout');
         toast.success("Logout Successfully")
         return redirect('/')
