@@ -29,7 +29,7 @@ import CDashboardLayout from './layout/CDashboardLayout';
 import Dashboard from './pages/customer/Dashboard';
 import Orders, {loader as CustomerLoader} from './pages/customer/Orders';
 import Profile, {loader as ProfileCustomerL} from './pages/customer/Profile';
-import MerchantProfile, {loader as MerchantLoaderProfile} from './pages/merchant/Profile';
+import MerchantProfile, {loader as MerchantLoaderProfile, action as MerchantActionUpdate} from './pages/merchant/Profile';
 import MerchantOrders, {loader as MerchantOrderLoader} from './pages/merchant/Orders';
 
 const initialOptions = {
@@ -127,7 +127,8 @@ const router = createBrowserRouter([
           {
             path:"profile",
             element:<MerchantProfile/>,
-            loader:MerchantLoaderProfile
+            loader:MerchantLoaderProfile,
+            action:MerchantActionUpdate
           },
           {
             path:"create-product",
