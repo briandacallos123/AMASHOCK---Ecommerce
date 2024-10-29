@@ -32,6 +32,10 @@ app.use('/api/v1/product',authMiddleware,upload.single('attachment'), productRou
 app.use('/api/v1/public/product', productPublicRoute)
 app.use('/api/v1/orders',authMiddleware, orderRoute)
 
+app.get('*',(req, res)=>{
+    res.sendFile(path.resolve(__dirname,'./public','index.html'))
+})
+
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 
     api_key: process.env.CLOUD_API_KEY, 
