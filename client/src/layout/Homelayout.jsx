@@ -28,7 +28,7 @@ const Homelayout = () => {
 
         <HomeContext.Provider value={{ user }}>
             <CartContext>
-                <div className="h-auto">
+                <div className="h-400">
                     <div>
                         <div className="hidden lg:block">
                             <NavMainDesktop />

@@ -19,11 +19,7 @@ export const sidebarLinks = [
 ]
 
 export const customerLinks = [
-    {
-        id:4,
-        label:"home",
-        path:"/",
-    },
+
     {
         id:2,
         label:"orders",

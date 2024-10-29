@@ -17,6 +17,23 @@ body{
     padding:1rem 1.5rem;
 }
 
+.order-desktop {
+    display:none
+}
+
+.order-mobile{
+    display:block
+}
+
+
+@media only screen and (min-width: 600px) {
+    .order-desktop {
+      display:block
+    }
+    .order-mobile{
+        display:none
+    }
+  }
 /* @media screen and (max-width:450px) {
     .checkout-container{
         height: calc(100vh - 8rem);

@@ -38,7 +38,7 @@ const reducer = (state, action) => {
             
 
             if(isExists === -1){
-                newState = [...state.cart, {...action.payload}]
+                newState = [...state.cart, {...action.payload, productId:_id}]
                 newTotal += (Number(price) * Number(quantity))
                 totalItems += 1;
             }else{
@@ -104,6 +104,15 @@ const reducer = (state, action) => {
                     ...action.payload
                 }
             }
+        case "DELETE_ITEM":
+            const newCart2 = state?.cart?.filter((item)=>item?._id !== action?.payload?._id);
+            let totalItems2 = state.totalItem;
+          
+           
+            return {
+                state:newCart2,
+                totalItem:totalItems2-1
+            }
         case "RESET_STATE":{
             return {
                 cart:[],
@@ -124,9 +133,10 @@ const CartContext = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(()=>{
-        if(state?.totalItem){
-            localStorage.setItem('cart', JSON.stringify(state))
-        }
+        // if(state?.totalItem){
+        // }
+        localStorage.setItem('cart', JSON.stringify(state))
+
     },[state])
 
     useEffect(()=>{
@@ -146,6 +156,13 @@ const CartContext = ({children}) => {
         })
     }
 
+    const deleteItem = (val) => {
+        dispatch({
+            type:"DELETE_ITEM",
+            payload:val
+        })
+    }
+
     const resetCart = () => {
         dispatch({
             type:"RESET_STATE",
@@ -160,7 +177,7 @@ const CartContext = ({children}) => {
     }
 
   return (
-    <CartContextProvider.Provider value={{state,decrementItem, addToCart, resetCart}}>
+    <CartContextProvider.Provider value={{ deleteItem, state,decrementItem, addToCart, resetCart}}>
         {children}
     </CartContextProvider.Provider>
   )

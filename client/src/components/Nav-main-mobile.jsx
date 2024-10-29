@@ -63,7 +63,8 @@ const NavMobileMain = () => {
                                 <Icon tabIndex={0} role="button" icon="teenyicons:down-solid" fontSize={17} />
 
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-60 p-2 shadow text-black">
-                                    <li><a>Profile</a></li>
+                                    {/* <li><a>Profile</a></li> */}
+                                    <li><Link to="../customer/profile">Profile</Link></li>
 
                                     <li><a onClick={handleLogout}>Logout</a></li>
                                 </ul>

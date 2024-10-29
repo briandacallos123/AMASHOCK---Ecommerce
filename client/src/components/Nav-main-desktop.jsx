@@ -1,31 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import NavMainSearchForm from './Nav-main-search-form';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useHomeContext } from '../layout/Homelayout';
+import { useCartContext } from '../context/cartContext';
 
 const NavMainDesktop = () => {
     const { user } = useHomeContext();
     const { pathname } = useLocation();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const { state, resetCart } = useCartContext();
+    const navigate = useNavigate()
 
-    if (pathname !== '/' && pathname !== '/login' && pathname !== '/register' && !pathname.includes('/product/view')) {
-        return
-    }
+
 
     const handleNavigate = () => {
         let url;
-        if(user?.userRole === 'merchant'){
-            url =  '/merchant'
+        if (user?.userRole === 'merchant') {
+            url = '/merchant';
         }
         return url;
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
+    const handleNavigateCart = () => {
+        if (state?.totalItem !== 0) navigate('/product/checkout')
     }
 
+ 
 
-    console.log(user);
     return (
-        <div className="bg-[#131921] p-5">
-
-            <div className="content flex items-center text-white space-x-10">
+        <div className="bg-[#131921] p-5 lg:px-10 ">
+            <div className="content flex items-center text-white space-x-7">
                 <Link to="/" className="nav-logo text-3xl font-bold">Amashock</Link>
 
                 <div className="flex items-center space-x-1">
@@ -38,43 +47,61 @@ const NavMainDesktop = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                    <p>Hello,</p>
-                    {!user ? <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2">
+                        <p>Hello,</p>
+                        {!user ? (
+                            <div className="flex items-center space-x-2">
+                                <Link to="../login">Sign in</Link>
+                                <p>/</p>
+                                <Link to="../register">Sign up</Link>
+                            </div>
+                        ) : (
+                            <p className="capitalize">{user?.name}</p>
+                        )}
+                    </div>
 
-                        <Link to="../login">Sign in</Link>
-                        <p>/</p>
-                        <Link to="../register">Sign up</Link>
-                    </div> :
-                    <p className="capitalize">{user?.name}</p>
-                        
-                    }
 
+
+                    {user && (
+                        <div className="dropdown dropdown-end ">
+                            <Icon
+                                tabIndex={0}
+                                role="button"
+                                className="m-1"
+                                icon="mdi:user"
+                                fontSize={25}
+                                onClick={toggleDropdown}
+                            />
+                            {dropdownOpen && (
+                                <ul className="dropdown-content  z-[1000] menu bg-base-100 rounded-box w-40 py-3 px-5 space-y-5 text-black">
+                                    <li>
+                                        <Link to={user?.userRole === 'merchant' ? '/merchant' : '/customer/profile'}>
+                                            Profile
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/logout">Logout</Link>
+                                    </li>
+                                </ul>
+
+                            )}
+                        </div>
+                    )}
                 </div>
 
-                {!user && user?.userRole !== 'merchant' && <div className="flex items-center space-x-2">
-                    <p>Cart</p>
-                    <Icon fontSize={2} icon="mdi:cart" />
-
-                 
-                </div>}
-                {user && <div className="dropdown dropdown-end">
-                        <Icon tabIndex={0} role="button" className="m-1" icon="mdi:user" fontSize={25}/>
+                {user?.userRole !== 'merchant' && (
+                    <div onClick={handleNavigateCart} className="flex items-center space-x-2 cursor-pointer relative">
+                        <p  className="absolute -top-5 left-4  font-bold text-[#F3A847] ">
+                            {state?.totalItem !== 0 && state?.totalItem}
+                        </p>
                        
-                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 py-3 px-5 space-y-5 text-black">
-                            <Link to={user?.userRole === 'merchant' && '/merchant'}>
-                                <a href="#">Profile</a>
-                            </Link>
-                            <Link to="/logout">
-                                <a href="#">Logout</a>
-                            </Link>
-                        </ul>
-                    </div>}
-
-                 
+                        <Icon className="z-50" icon="mdi:cart" fontSize={22} />
+                        <p className="font-bold">Cart</p>
+                    </div>
+                )}
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default NavMainDesktop
+export default NavMainDesktop;

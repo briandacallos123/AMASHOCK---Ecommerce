@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router';
 import { useCartContext } from '../../context/cartContext'
 import CheckOutItem from './list-item';
 import { useHomeContext } from '../../layout/Homelayout';
+import { formatMoney } from '../../utils/numberFormatter';
 
 const Checkout = () => {
-    const {state, addToCart, decrementItem} = useCartContext();
+    const {state, addToCart, decrementItem, deleteItem} = useCartContext();
     const navigate = useNavigate();
     const {user} = useHomeContext()
 
@@ -16,9 +17,9 @@ const Checkout = () => {
             navigate('/product/checkout/address')
         }
     }
-
+    
     const onIncrement = useCallback((item)=>{
-        
+            console.log(item,'hehehehehehehe')
         addToCart({
             _id:item?._id,
             title:item?.title,
@@ -28,6 +29,7 @@ const Checkout = () => {
             total:Number(item.price * item.quantity),
             description:item?.description,
             isCheckout:true,
+            productId:item?._id
           })
     },[])
 
@@ -38,13 +40,20 @@ const Checkout = () => {
         })
     },[])
 
+    const handleDeleteItem = (item) => {
+    
+        deleteItem(item)
+    }
+
   return (
-    <div className="  grid grid-cols-1 w-full py-5 px-2 space-y-5">
-        <button onClick={onNavigate} className="btn-c h-14 text-lg text-white bg-[#F3A847] rounded-2xl">Proceed to checkout ({state?.totalItem} item{state?.totalItem > 1 && "s"})</button>
+    <div className="grid grid-cols-1 pb-16 w-full py-5 px-2 space-y-5 max-w-[800px] lg:mx-auto">
+        <button onClick={onNavigate} className="btn-c h-14 text-lg text-white bg-[rgb(243,168,71)] rounded-2xl">Proceed to checkout ({state?.totalItem} item{state?.totalItem > 1 && "s"})</button>
 
 
         {state?.cart?.map((item)=>(
-            <CheckOutItem onDecrement={()=>{
+            <CheckOutItem onDeleteItem={()=>{
+                handleDeleteItem(item)
+            }} onDecrement={()=>{
                 onDecrement(item)
             }} onIncrement={()=>onIncrement(item)} key={item?._id} row={item}/>
         ))}
@@ -57,7 +66,7 @@ const Checkout = () => {
            </div>
            <div className="flex items-center space-x-2 text-lg">
              <h2>Total: </h2>
-                <p>{state?.total}</p>
+                <p>{formatMoney(state?.total)}</p>
            </div>
         </div>
     </div>

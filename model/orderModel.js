@@ -14,7 +14,11 @@ const orderSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"users"
     },
-    attachment:String
+    attachment:String,
+    productId:{
+        type:mongoose.Types.ObjectId,
+        ref:"product"
+    }
 },{
     timestamps:true
 })

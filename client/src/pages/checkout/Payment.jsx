@@ -34,55 +34,31 @@ const Payment = () => {
   }, [])
 
 
-  // useEffect(()=>{
-  //   (async()=>{
-  //     if(state?.cart){
-  //       const payload = state?.cart?.map((item)=>{
-  //         return {
-  //           productName:item?.title,
-  //           price:item?.price,
-  //           quantity:item?.quantity,
-  //           value:item?.total,
-  //           deliveryAddress:address,
-  //           attachment:item?.attachment,
-  //           sellerId:item?.sellerId
-  //         }
-  //       })
-
-  //       console.log(payload)
-
-  //       await customFetch.post('/orders', payload)
-  //       navigate('/');
-  //     }
-  //   })()
-  // },[state?.cart])
-
-
   const onApproveOrder = async (data, actions) => {
     toast.success("Placed order successfully!")
-    // resetCart()
-    // let isCart = JSON.parse(localStorage?.getItem("cart"));
-    // if (isCart) {
-    //   localStorage.removeItem('cart')
-    // }
+    localStorage.removeItem('cart');
+    resetCart()
 
     const { brgy, city, number, street } = JSON.parse(localStorage.getItem('address'));
 
     let address = `${street} ${number} ${brgy}, ${city}`;
 
     const payload = state?.cart?.map((item) => {
+      console.log(item,'itemmmmmmmmmmmmm')
       return {
         productName: item?.title,
+        productId:item?._id,
         price: item?.price,
         quantity: item?.quantity,
         value: item?.total,
         deliveryAddress: address,
         attachment: item?.attachment,
         sellerId: item?.sellerId
+
       }
     })
 
-    console.log(payload)
+
 
     await customFetch.post('/orders', payload)
     navigate('/');
@@ -97,30 +73,10 @@ const Payment = () => {
 
   }
 
-  const go = async () => {
-    const { brgy, city, number, street } = JSON.parse(localStorage.getItem('address'));
-
-    let address = `${street} ${number} ${brgy}, ${city}`;
-
-    const payload = state?.cart?.map((item) => {
-      return {
-        productName: item?.title,
-        price: item?.price,
-        quantity: item?.quantity,
-        value: item?.total,
-        deliveryAddress: address,
-        attachment: item?.attachment,
-        sellerId: item?.sellerId
-      }
-    })
-
-
-    await customFetch.post('/orders', payload)
-    // navigate('/');
-  }
+  
 
   return (
-    <div className="py-10 px-5 space-y-10 w-full  overflow-hidden">
+    <div className="py-10 px-5 space-y-10 w-full  overflow-hidden lg:max-w-[600px] lg:mx-auto lg:pt-16">
       <h1 className="text-xl text-gray-400">Payment</h1>
       <div className="space-y-5">
         <div className="flex items-center space-x-2">
@@ -133,7 +89,7 @@ const Payment = () => {
         </div>
 
       </div>
-      <button onClick={go} className="py-2 px-5">Go</button>
+      {/* <button onClick={go} className="py-2 px-5">Go</button> */}
       <PayPalButtons
         style={{ layout: "vertical" }}
         createOrder={(data, actions) => onCreateOrder(data, actions)}

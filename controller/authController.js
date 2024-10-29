@@ -7,7 +7,7 @@ import { createJWT } from '../utils/tokenUtils.js';
 export const register = async(req, res) => {
     const hashedPass = await hashPass(req.body.password)
     req.body.password = hashedPass
-    req.body.userRole = Number(req.body.isMerchant) === 1 && 'merchant';
+    req.body.userRole = Number(req.body.isMerchant) === 1 ? 'merchant':'customer';
 
     const user = await userModel.create({...req.body});
     res.status(200).json({user})
@@ -17,8 +17,9 @@ export const login = async(req, res) => {
     const isExists = await userModel.findOne({email:req.body.email});
 
     if(!isExists) return res.status(404).json({msg:"not exists"});
+  
     const matchedPass = await comparePassword(req.body.password, isExists.password);
-    if(!matchedPass) return res.status(404).json({msg:"not exists"});
+    if(!matchedPass) return res.status(404).json({msg:"incorrect password"});
 
     const token = createJWT({userId:isExists?._id, role:isExists?.userRole})
     const oneDay = 1000 * 60 * 60 * 24;
@@ -32,19 +33,7 @@ export const login = async(req, res) => {
 
 }
 
-export const updateAccount = async(req, res) => {
-    let password;
-    if(req.body.password){
-        password = await hashPass(req.body.password)
-    }
-    console.log(req.user);
-    req.body.password = password
-    await userModel.findOneAndUpdate({
-        _id:req.user._id
-    },{...req.body},{new:true})
 
-    res.status(200).json({msg:"Updated successfully"})
-}
 
 export const logout = async(req, res) => {
     res.cookie('token','logout',{

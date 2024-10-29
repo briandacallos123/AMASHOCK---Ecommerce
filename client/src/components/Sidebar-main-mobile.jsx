@@ -9,7 +9,7 @@ const SidebarMainMobile = ({ links, closeSidebar }) => {
   
     return (
         <div>
-            <div className="absolute py-8 pl-5 space-y-20 left-0 bottom-0 top-0 w-[70%] bg-slate-900 z-50">
+            <div className="absolute py-8 pl-8 space-y-20 left-0 bottom-0 top-0 w-[80%] bg-slate-900 z-50">
                 <h1 className="text-xl font-semibold">Amashock</h1>
 
                 <div className="links flex flex-col  space-y-7">

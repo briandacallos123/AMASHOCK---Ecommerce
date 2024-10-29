@@ -13,7 +13,7 @@ export const action = async({request}) =>{
 const Address = () => { 
 
   return (
-    <div className="py-10 px-5 space-y-10 w-full ">
+    <div className="py-10 px-5 space-y-10 w-full lg:max-w-[600px] lg:mx-auto ">
         <h1 className="text-xl text-gray-400">Delivery Address</h1>
         <Form method="post" className="w-full space-y-5 h-auto ">
           <RHFTextField required  name="street" label="Street Name"/>

@@ -28,9 +28,10 @@ import Payment from './pages/checkout/Payment';
 import CDashboardLayout from './layout/CDashboardLayout';
 import Dashboard from './pages/customer/Dashboard';
 import Orders, {loader as CustomerLoader} from './pages/customer/Orders';
-import Profile, {loader as ProfileCustomerL} from './pages/customer/Profile';
+import Profile, {loader as ProfileCustomerL, action as ProfileCustomerA} from './pages/customer/Profile';
 import MerchantProfile, {loader as MerchantLoaderProfile, action as MerchantActionUpdate} from './pages/merchant/Profile';
 import MerchantOrders, {loader as MerchantOrderLoader} from './pages/merchant/Orders';
+import ViewOrder,{loader as OrderViewLoader } from './pages/customer/ViewOrder';
 
 const initialOptions = {
   "client-id": "Ade90ExOQRf0oSF1PDxbAmrh7x3t9KsKyRv2aH-p0RD5sXM6EJXtGMwICl567C5sREE6uJgAN5TqyGFH",
@@ -102,9 +103,15 @@ const router = createBrowserRouter([
             loader:CustomerLoader
           },
           {
+            path:"view/:id",
+            element:<ViewOrder/>,
+            loader:OrderViewLoader
+          },
+          {
             path:"profile",
             element:<Profile/>,
-            loader:ProfileCustomerL
+            loader:ProfileCustomerL,
+            action:ProfileCustomerA
           }
 
         ]
@@ -129,6 +136,11 @@ const router = createBrowserRouter([
             element:<MerchantProfile/>,
             loader:MerchantLoaderProfile,
             action:MerchantActionUpdate
+          },
+          {
+            path:"view/:id",
+            element:<ViewOrder/>,
+            loader:OrderViewLoader
           },
           {
             path:"create-product",

@@ -25,6 +25,8 @@ export const action = async ({request}) => {
             return false;
         }
         await customFetch.post('/user/update-account',data);
+        toast.success("Updated Successfully")
+
         return null
     } catch (error) {
         return error
@@ -38,11 +40,11 @@ const MerchantProfile = () => {
     const handleEdit = () => setEdit(!isEdit)
 
     return (
-        <div className="pt-9 px-7 w-full">
-            <div className="w-full p-5 space-y-5">
+        <div className="pt-20 px-7 w-full flex justify-center">
+            <div className="w-full p-5 lg:pt-10 space-y-5 max-w-[500px]">
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl text-gray-500">Profile</h1>
-                    <Icon onClick={handleEdit} className="text-green-700" icon="mdi:pencil" fontSize={22} />
+                    <Icon onClick={handleEdit} className="text-green-700 cursor-pointer" icon="mdi:pencil" fontSize={22} />
                 </div>
                 <Form method="post" className="w-full space-y-5 p-2">
                     <RHFTextField label="Name" defaultValue={data?.name} name="name" />

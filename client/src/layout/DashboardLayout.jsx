@@ -15,9 +15,9 @@ const DashboardLayout = () => {
     },[user])
     return (
         <div className='w-full background-white '>
-            {/* <div>
-                <NavMechantMain />
-            </div> */}
+            <div>
+                {/* <NavMechantMain /> */}
+            </div>
             <div className='flex'>
                 {user?.userRole === 'merchant' && <div>
                     <div className="hidden lg:block">

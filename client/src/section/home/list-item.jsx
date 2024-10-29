@@ -6,7 +6,7 @@ const ListItem = ({ row }) => {
     const { attachment, category, price, title, description, _id } = row;
     const {user} = useHomeContext();
 
-    const isCustomer = user?.userRole === 'customer';
+    const isCustomer = user?.userRole === 'customer' || !user;
 
     return (
         <div className="bg-base-100 px-5 py-4 h-auto flex flex-col space-y-3 sm:space-y-5 overflow-hidden">
